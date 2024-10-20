@@ -15,5 +15,6 @@ public class SkyboxController : MonoBehaviour
 
         // Moon
         Shader.SetGlobalVector("_MoonDir", -_Moon.transform.forward);
+        Shader.SetGlobalMatrix("_MoonSpaceMatrix", new Matrix4x4(-_Moon.transform.forward, -_Moon.transform.up, -_Moon.transform.right, Vector4.zero).transpose);
     }
 }
