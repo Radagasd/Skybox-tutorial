@@ -185,6 +185,16 @@ Shader "KelvinvanHoorn/Skybox"
                 float3 constColor = SAMPLE_TEXTURECUBE(_ConstellationCubeMap, sampler_ConstellationCubeMap, starUVW).rgb * _ConstellationColor;
                 constColor *= (1 - sunMask) * (1 - moonMask) * starStrength;
 
+                // Solar eclipse
+                float solarEclipse01 = smoothstep(1 - _SunRadius * _SunRadius, 1.0, sunMoonDot);
+                skyColor *= lerp(1, 0.4, solarEclipse01);
+                sunColor *= (1 - moonMask) * lerp(1, 16, solarEclipse01);
+
+                // Lunar eclipse
+                float lunarEclipseMask = 1 - step(1 - _SunRadius * _SunRadius, -sunViewDot);
+                float lunarEclipse01 = smoothstep(1 - _SunRadius * _SunRadius * 0.05, 1.0, -sunMoonDot);
+                moonColor *= lerp(lunarEclipseMask, float3(0.3,0.05,0), lunarEclipse01);
+
                 float3 col = skyColor + sunColor + moonColor + starColor + constColor;
                 return float4(col, 1.0);
             }

@@ -45,7 +45,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - _MoonExposure: 0
-    - _MoonRadius: 0.07
+    - _MoonRadius: 0.067
     - _StarExposure: 3
     - _StarLatitude: 52
     - _StarPower: 1.5
