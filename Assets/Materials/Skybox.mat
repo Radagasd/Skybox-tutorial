@@ -18,7 +18,20 @@ Material:
   disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
-    m_TexEnvs: []
-    m_Floats: []
+    m_TexEnvs:
+    - _SunViewGrad:
+        m_Texture: {fileID: 2800000, guid: bf672eec91015a5478a67907fdb65b47, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SunZenithGrad:
+        m_Texture: {fileID: 2800000, guid: 3aebb6cb53e4185419a6f16503288e45, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ViewZenithGrad:
+        m_Texture: {fileID: 2800000, guid: 86c4d3aa95beee74197a488a80bc2f47, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - _SunRadius: 0.05
     m_Colors: []
   m_BuildTextureStacks: []
