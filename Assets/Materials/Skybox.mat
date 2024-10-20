@@ -19,8 +19,16 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _ConstellationCubeMap:
+        m_Texture: {fileID: 8900000, guid: 88fc63f58a1ebf340b6536f79c0e6c40, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _MoonCubeMap:
         m_Texture: {fileID: 8900000, guid: d2cc02d416856fd49838f5df47005c2c, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _StarCubeMap:
+        m_Texture: {fileID: 8900000, guid: ac441be0e94411648a960bf892edbd7b, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SunViewGrad:
@@ -38,6 +46,11 @@ Material:
     m_Floats:
     - _MoonExposure: 0
     - _MoonRadius: 0.07
+    - _StarExposure: 3
+    - _StarLatitude: 52
+    - _StarPower: 1.5
+    - _StarSpeed: 0.01
     - _SunRadius: 0.05
-    m_Colors: []
+    m_Colors:
+    - _ConstellationColor: {r: 0, g: 0.29999998, b: 0.6, a: 1}
   m_BuildTextureStacks: []
