@@ -90,18 +90,6 @@ Shader "KelvinvanHoorn/Skybox"
                 return -b - h;
             }
 
-            float3 GetMoonTexture(float3 normal)
-            {
-                float3 uvw = mul(_MoonSpaceMatrix, float4(normal, 0)).xyz;
-
-                float3x3 correctionMatrix = float3x3(0, -0.2588190451, -0.9659258263,
-                    0.08715574275, 0.9622501869, -0.2578341605,
-                    0.9961946981, -0.08418598283, 0.02255756611);
-                uvw = mul(correctionMatrix, uvw);
-
-                return SAMPLE_TEXTURECUBE(_MoonCubeMap, sampler_MoonCubeMap, uvw).rgb;
-            }
-
             // Construct a rotation matrix that rotates around a particular axis by angle
             // From: https://gist.github.com/keijiro/ee439d5e7388f3aafc5296005c8c3f33
             float3x3 AngleAxis3x3(float angle, float3 axis)
@@ -119,6 +107,18 @@ Shader "KelvinvanHoorn/Skybox"
                     t * x * y + s * z, t * y * y + c, t * y * z - s * x,
                     t * x * z - s * y, t * y * z + s * x, t * z * z + c
                     );
+            }
+
+            float3 GetMoonTexture(float3 normal)
+            {
+                float3 uvw = mul(_MoonSpaceMatrix, float4(normal, 0)).xyz;
+
+                // Found through trial and error resulting in mul(AngleAxis3x3(0.5*PI, float3(0,1,0)), AngleAxis3x3(-0.08*PI, float3(1,0,0)));
+                float3x3 correctionMatrix = float3x3( 0, -0.24869, 0.968583, 0, 0.968583, 0.24869, -1, 0, 0);
+
+                uvw = mul(correctionMatrix, uvw);
+
+                return SAMPLE_TEXTURECUBE(_MoonCubeMap, sampler_MoonCubeMap, uvw).rgb;
             }
 
             // Rotate the view direction, tilt with latitude, spin with time
@@ -169,8 +169,8 @@ Shader "KelvinvanHoorn/Skybox"
                 // The moon
                 float moonIntersect = sphIntersect(viewDir, _MoonDir, _MoonRadius);
                 float moonMask = moonIntersect > -1 ? 1 : 0;
-                float3 moonNormal = normalize(_MoonDir - viewDir * moonIntersect);
-                float moonNdotL = saturate(dot(moonNormal, -_SunDir));
+                float3 moonNormal = normalize(viewDir * moonIntersect - _MoonDir);
+                float moonNdotL = saturate(dot(moonNormal, _SunDir));
                 float3 moonTexture = GetMoonTexture(moonNormal);
                 float3 moonColor = moonMask * moonNdotL * exp2(_MoonExposure) * moonTexture;
 
